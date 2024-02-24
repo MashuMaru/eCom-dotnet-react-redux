@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "/50DSXTQQ3whaojLgKyZrtFAZbb9/+eSLvTQc2emrhu8aIeW7FHPXLvptgY9+lcfIGqVlBUn8sg6SYThaxCRYg==",
+  "dgSpecHash": "hkuQwjIaYY0QKnbsw7ISwtQjsLavskJFIoINoTfqIGbWrlR378XydJUOHNnV0tVE2Kbfj8oij4AQp1iqQfjeyQ==",
   "success": true,
-  "projectFilePath": "/Users/matthewberenyi/Desktop/FS_projects/eCom dotnet react redux/API/API.csproj",
+  "projectFilePath": "/Users/matthewberenyi/Documents/GitHub/eCom-dotnet-react-redux/API/API.csproj",
   "expectedPackageFiles": [
     "/Users/matthewberenyi/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5/microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
     "/Users/matthewberenyi/.nuget/packages/microsoft.openapi/1.2.3/microsoft.openapi.1.2.3.nupkg.sha512",

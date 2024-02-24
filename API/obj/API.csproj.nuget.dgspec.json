@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/matthewberenyi/Desktop/FS_projects/eCom dotnet react redux/API/API.csproj": {}
+    "/Users/matthewberenyi/Documents/GitHub/eCom-dotnet-react-redux/API/API.csproj": {}
   },
   "projects": {
-    "/Users/matthewberenyi/Desktop/FS_projects/eCom dotnet react redux/API/API.csproj": {
+    "/Users/matthewberenyi/Documents/GitHub/eCom-dotnet-react-redux/API/API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/matthewberenyi/Desktop/FS_projects/eCom dotnet react redux/API/API.csproj",
+        "projectUniqueName": "/Users/matthewberenyi/Documents/GitHub/eCom-dotnet-react-redux/API/API.csproj",
         "projectName": "API",
-        "projectPath": "/Users/matthewberenyi/Desktop/FS_projects/eCom dotnet react redux/API/API.csproj",
+        "projectPath": "/Users/matthewberenyi/Documents/GitHub/eCom-dotnet-react-redux/API/API.csproj",
         "packagesPath": "/Users/matthewberenyi/.nuget/packages/",
-        "outputPath": "/Users/matthewberenyi/Desktop/FS_projects/eCom dotnet react redux/API/obj/",
+        "outputPath": "/Users/matthewberenyi/Documents/GitHub/eCom-dotnet-react-redux/API/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/matthewberenyi/.nuget/NuGet/NuGet.Config"
