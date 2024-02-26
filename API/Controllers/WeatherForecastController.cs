@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
-
+// Create new controllers.
 [ApiController]
 [Route("[controller]")]
 public class WeatherForecastController(ILogger<WeatherForecastController> logger) : ControllerBase

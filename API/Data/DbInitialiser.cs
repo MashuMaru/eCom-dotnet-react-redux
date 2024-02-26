@@ -209,7 +209,7 @@ public static class DbInitialiser
                 QuantityInStock = 100
             },
         };
-
+        
         await context.Products.AddRangeAsync(products);
         await context.SaveChangesAsync();
     }
