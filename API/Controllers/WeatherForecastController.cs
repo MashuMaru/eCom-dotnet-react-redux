@@ -1,10 +1,11 @@
+using API.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 // Create new controllers.
 [ApiController]
 [Route("[controller]")]
-public class WeatherForecastController(ILogger<WeatherForecastController> logger) : ControllerBase
+public class WeatherForecastController(ILogger<WeatherForecastController> logger, StoreContext storeContext) : ControllerBase
 {
     private static readonly string[] Summaries = new[]
     {
