@@ -1,0 +1,9 @@
+
+API/appsettings.Development.json
+*.pdb
+*.cache
+*.dll
+*.pdb
+*.cache
+*.db-shm
+*.db-wal
