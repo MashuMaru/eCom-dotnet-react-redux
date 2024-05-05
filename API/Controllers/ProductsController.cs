@@ -27,6 +27,6 @@ public class ProductsController : ControllerBase
     [HttpGet("{id:int}")]
     public async Task<ActionResult<Product>> GetProductById(int id)
     {
-        return await _context.Products.FindAsync(id);
+        return await _context.Products.FirstOrDefaultAsync(x => x.Id == id);
     }
 }
