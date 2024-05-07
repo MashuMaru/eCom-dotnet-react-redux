@@ -14,7 +14,7 @@ public class ProductsController : ControllerBase
     private readonly StoreContext _context;
 
     public ProductsController(StoreContext context)
-    {
+    { 
         _context = context;
     }
 
