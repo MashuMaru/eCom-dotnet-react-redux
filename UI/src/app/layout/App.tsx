@@ -1,6 +1,7 @@
 import {useEffect, useState } from 'react'
 import './styles.css'
 import { IProduct } from '../interfaces/IProduct';
+import Catalog from '../../features/catalog/Catalog';
 
 function App() {
   const [products, setProducts] = useState<IProduct[]>([]);
@@ -10,7 +11,7 @@ function App() {
       .then(response => response.json())
       .then(data => setProducts(data))
   }, []);
-  
+
   const addProduct = () => {
     setProducts(prev => [...prev,
       {
@@ -27,12 +28,7 @@ function App() {
   return (
     <div>
       <h1>Store</h1>
-      <ul>
-        {products.map(product => (
-          <li key={product.id}>{product.name} - {product.price} - {product.brand}</li>
-        ))}
-      </ul>
-      <button onClick={addProduct}>Add product</button>
+      <Catalog products={products} addProduct={addProduct}/>
     </div>
   )
 }
