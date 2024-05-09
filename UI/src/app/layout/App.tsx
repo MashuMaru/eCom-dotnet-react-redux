@@ -2,14 +2,13 @@ import {useEffect, useState } from 'react'
 import './styles.css'
 import { IProduct } from '../interfaces/IProduct';
 import Catalog from '../../features/catalog/Catalog';
+import agent from '../api/agent'
 
 function App() {
   const [products, setProducts] = useState<IProduct[]>([]);
 
   useEffect(() => {
-    fetch('http://localhost:5000/api/Products')
-      .then(response => response.json())
-      .then(data => setProducts(data))
+    agent.Catalog.list().then(products => setProducts(products))
   }, []);
 
   const addProduct = () => {
