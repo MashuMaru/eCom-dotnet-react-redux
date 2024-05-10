@@ -1,7 +1,40 @@
-import axios, { AxiosResponse } from "axios";
+import axios, {AxiosError, AxiosResponse } from "axios";
+import { toast } from "react-toastify";
 
 axios.defaults.baseURL = "http://localhost:5000/api/";
 const responseBody = (response: AxiosResponse) => response.data;
+
+axios.interceptors.response.use(response => {
+  return response;
+}, (error: AxiosError) => {
+  const { data, status } = error.response as AxiosResponse;
+  switch (status) {
+    case 400:
+      let message:string = "";
+      if (data.errors) {
+        message = "Validation error. "
+        for (const key in data.errors) {
+          if (data.errors[key]) {
+            message += data.errors[key] + " "
+          }
+        }
+      }
+      console.log(message)
+      toast.error(message.length ? message : data.title);
+      break;
+    case 401:
+      toast.warning("Permission denied.");
+      break;
+    case 404:
+      toast.error(data.title);
+      break;
+    case 500:
+      toast.error(data.title);
+      break;
+    default: break;
+  }
+  return Promise.reject(error.response);
+})
 
 const requests = {
   get: (url: string) => axios.get(url).then(responseBody),

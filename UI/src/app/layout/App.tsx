@@ -27,6 +27,7 @@ function App() {
   return (
     <div>
       <h1>Store</h1>
+      <button onClick={() => agent.Catalog.details(300)}>Get by Id</button>
       <Catalog products={products} addProduct={addProduct}/>
     </div>
   )

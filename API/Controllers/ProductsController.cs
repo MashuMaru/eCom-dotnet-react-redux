@@ -23,6 +23,10 @@ public class ProductsController : BaseApiController
     [HttpGet("{id:int}")]
     public async Task<ActionResult<Product>> GetProductById(int id)
     {
-        return await _context.Products.FirstOrDefaultAsync(x => x.Id == id);
+        var products = await _context.Products.FindAsync(id);
+        if (products == null)
+            return NotFound();
+
+        return products;
     }
 }

@@ -1,4 +1,5 @@
 import { IProduct } from "../../app/interfaces/IProduct"
+import ErrorTest from "../error/ErrorTest"
 
 interface IProps {
   products: IProduct[]
@@ -15,6 +16,8 @@ export default function Catalog({ products, addProduct }: IProps) {
         ))}
       </ul>
       <button onClick={addProduct}>Add product</button>
+      
+      <ErrorTest />
     </>
   )
 }
