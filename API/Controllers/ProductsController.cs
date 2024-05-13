@@ -17,16 +17,21 @@ public class ProductsController : BaseApiController
     [HttpGet]
     public async Task<ActionResult<List<Product>>> GetProducts()
     {
-        return await _context.Products.ToListAsync();
+        var products = await _context.Products.ToListAsync();
+
+        if (!products.Any())
+            return NoContent();
+
+        return Ok(products);
     }
 
     [HttpGet("{id:int}")]
     public async Task<ActionResult<Product>> GetProductById(int id)
     {
-        var products = await _context.Products.FindAsync(id);
-        if (products == null)
+        var product = await _context.Products.FindAsync(id);
+        if (product == null)
             return NotFound();
 
-        return products;
+        return Ok(product);
     }
 }

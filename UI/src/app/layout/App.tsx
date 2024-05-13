@@ -3,6 +3,7 @@ import './styles.css'
 import { IProduct } from '../interfaces/IProduct';
 import Catalog from '../../features/catalog/Catalog';
 import agent from '../api/agent'
+import {Typography} from "@mui/material";
 
 function App() {
   const [products, setProducts] = useState<IProduct[]>([]);
@@ -26,8 +27,8 @@ function App() {
   
   return (
     <div>
-      <h1>Store</h1>
-      <button onClick={() => agent.Catalog.details(300)}>Get by Id</button>
+      <Typography variant="h1">Store</Typography>
+      <button onClick={() => agent.Catalog.details(1)}>Get by Id</button>
       <Catalog products={products} addProduct={addProduct}/>
     </div>
   )
