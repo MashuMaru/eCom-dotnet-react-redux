@@ -1,35 +1,29 @@
-import {useEffect, useState } from 'react'
 import './styles.css'
-import { IProduct } from '../interfaces/IProduct';
 import Catalog from '../../features/catalog/Catalog';
-import agent from '../api/agent'
-import {Typography} from "@mui/material";
+import Header from "./Header.tsx";
+import {Container, createTheme, CssBaseline, ThemeProvider} from "@mui/material";
+import {useState} from "react";
 
 function App() {
-  const [products, setProducts] = useState<IProduct[]>([]);
-
-  useEffect(() => {
-    agent.Catalog.list().then(products => setProducts(products))
-  }, []);
-
-  const addProduct = () => {
-    setProducts(prev => [...prev,
-      {
-        id: prev.length + 101,
-        name: "new product",
-        price: (prev.length * 100) + 100,
-        brand: "new brand",
-        description: "some description",
-        pictureUrl: "http:picsum.photos/200"
+  const [darkMode, setDarkMode] = useState<boolean>(false);
+  const paletteType = darkMode ? 'dark' : 'light'
+  const theme = createTheme({
+    palette: {
+      mode: paletteType,
+      background: {
+        default: paletteType === 'light' ? '#eaeaea' : '#121212'
       }
-    ])
-  }
+    }
+  });
   
   return (
-    <div>
-      <Typography variant="h1">Store</Typography>
-      <Catalog products={products} addProduct={addProduct}/>
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Header handleDarkMode={(value: boolean) => setDarkMode(value)} />
+      <Container>
+          <Catalog />
+      </Container>
+    </ThemeProvider>
   )
 }
 

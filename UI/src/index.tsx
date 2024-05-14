@@ -10,8 +10,8 @@ import '@fontsource/roboto/700.css';
 
 
 ReactDOM.createRoot(document.getElementById('store-app')!).render(
-    <React.StrictMode>
-      <ToastContainer position="top-right" hideProgressBar theme="colored" />
-        <App />
-    </React.StrictMode>,
+  <React.StrictMode>
+    <ToastContainer position="top-right" hideProgressBar theme="colored" />
+    <App />
+  </React.StrictMode>,
 )

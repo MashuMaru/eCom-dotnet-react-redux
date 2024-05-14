@@ -1,20 +1,22 @@
-import { IProduct } from "../../app/interfaces/IProduct"
-import {Button} from "@mui/material";
+import { IProduct } from "../../app/interfaces/IProduct";
 import ProductList from "./ProductList.tsx";
+import {useEffect, useState} from "react";
+import agent from "../../app/api/agent.ts";
 
-interface IProps {
-  products: IProduct[]
-  addProduct: () => void
-}
-
-export default function Catalog({ products, addProduct }: IProps) {
+const Catalog = () => {
+  const [products, setProducts] = useState<IProduct[]>([]);
   
+  useEffect(() => {
+    agent.Catalog.list()
+      .then(products => setProducts(products))
+  }, []);
+
   return (
     <>
       <ProductList products={products} />
-      <Button variant="contained" onClick={addProduct}>Add product</Button>
-      
       {/*<ErrorTest />*/}
     </>
   )
 }
+
+export default Catalog;
