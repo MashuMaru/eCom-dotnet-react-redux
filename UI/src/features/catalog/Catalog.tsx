@@ -1,5 +1,6 @@
 import { IProduct } from "../../app/interfaces/IProduct"
-import ErrorTest from "../error/ErrorTest"
+import {Button} from "@mui/material";
+import ProductList from "./ProductList.tsx";
 
 interface IProps {
   products: IProduct[]
@@ -10,14 +11,10 @@ export default function Catalog({ products, addProduct }: IProps) {
   
   return (
     <>
-      <ul>
-        {products.map(product => (
-          <li key={product.id}>{product.name} - {product.price} - {product.brand}</li>
-        ))}
-      </ul>
-      <button onClick={addProduct}>Add product</button>
+      <ProductList products={products} />
+      <Button variant="contained" onClick={addProduct}>Add product</Button>
       
-      <ErrorTest />
+      {/*<ErrorTest />*/}
     </>
   )
 }

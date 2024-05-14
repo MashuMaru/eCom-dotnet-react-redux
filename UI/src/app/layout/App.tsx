@@ -28,7 +28,6 @@ function App() {
   return (
     <div>
       <Typography variant="h1">Store</Typography>
-      <button onClick={() => agent.Catalog.details(1)}>Get by Id</button>
       <Catalog products={products} addProduct={addProduct}/>
     </div>
   )
