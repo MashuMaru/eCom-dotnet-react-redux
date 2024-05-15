@@ -8,6 +8,7 @@ import {
   Typography
 } from "@mui/material";
 import {IProduct} from "../../app/interfaces/IProduct.tsx";
+import {Link} from "react-router-dom";
 
 interface IProps {
   product: IProduct
@@ -36,7 +37,7 @@ export default function ProductCard({product} : IProps) {
       </CardContent>
       <CardActions>
         <Button size="small">Add to cart</Button>
-        <Button size="small">View</Button>
+        <Button size="small" component={Link} to={`/catalog/${product.id}`}>View</Button>
       </CardActions>
     </Card>
   )
