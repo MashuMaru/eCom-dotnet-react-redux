@@ -1,5 +1,6 @@
 import axios, {AxiosError, AxiosResponse } from "axios";
 import { toast } from "react-toastify";
+import {router} from "../router/Routes.tsx";
 
 axios.defaults.baseURL = "http://localhost:5000/api/";
 const responseBody = (response: AxiosResponse) => response.data;
@@ -26,10 +27,10 @@ axios.interceptors.response.use(response => {
       toast.warning("Permission denied.");
       break;
     case 404:
-      toast.error(data.title);
+      router.navigate('/not-found')
       break;
     case 500:
-      toast.error(data.title);
+      router.navigate('/server-error', { state: { error: data }})
       break;
     default: break;
   }
