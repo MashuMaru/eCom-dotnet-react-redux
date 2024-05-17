@@ -3,6 +3,8 @@ import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import agent from "../../app/api/agent.ts";
 import {IProduct} from "../../app/interfaces/IProduct.tsx";
+import Loading from "../../app/layout/Loading.tsx";
+import NotFound from "../../app/errors/NotFound.tsx";
 
 const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -16,8 +18,8 @@ const ProductDetails = () => {
         .finally(() => setLoading(false))
   }, [id])
 
-  if (loading) return <h1>Loading data...</h1>
-  if (!product) return <h1>Product not found...</h1>
+  if (loading) return <Loading message="Loading product details." />
+  if (!product) return <NotFound />
   
   return (
     <Grid container spacing={2}>
