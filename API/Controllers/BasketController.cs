@@ -43,7 +43,7 @@ public class BasketController : BaseApiController
     [HttpPost]
     public async Task<ActionResult> AddItemToBasket(int productId, int quantity)
     {
-        var basket = await RetrieveBasket() ?? await RetrieveBasket();
+        var basket = await RetrieveBasket() ?? await CreateBasket();
 
         var product = await _context.Products.FindAsync(productId);
 
@@ -53,17 +53,24 @@ public class BasketController : BaseApiController
 
         var result = await _context.SaveChangesAsync() > 0;
 
-        if (result) return StatusCode(201);
+        if (!result) return BadRequest(new ProblemDetails { Title = "Problem saving item to basket." });
         
-        return BadRequest(new ProblemDetails { Title = "Problem saving item to basket." });
+        return StatusCode(201);
     }
 
     [HttpDelete]
     public async Task<ActionResult> RemoveBasketItem(int productId, int quantity)
     {
-        // get basket
-        // remove item or reduce quantity
-        // save changes
+        var basket = await RetrieveBasket();
+
+        if (basket == null) return NotFound();
+        
+        basket.RemoveItem(productId, quantity);
+
+        var result = await _context.SaveChangesAsync() > 0;
+
+        if (!result) return BadRequest(new ProblemDetails { Title = "Problem removing item from basket." });
+        
         return Ok();
     }
     
