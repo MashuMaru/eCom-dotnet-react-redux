@@ -9,4 +9,5 @@ public class StoreContext : DbContext // DbContext inheritance from EFCore.
     }
 
     public DbSet<Product> Products { get; set; } // Name of the table and it's model.
+    public DbSet<Basket> Baskets { get; set; }
 }
