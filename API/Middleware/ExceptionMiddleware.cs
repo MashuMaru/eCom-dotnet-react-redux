@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Middleware;
 
-public class ExceptionMiddleware
+public class ExceptionMiddleware 
 {
     private readonly RequestDelegate _next;
     private readonly ILogger<ExceptionMiddleware> _logger;
@@ -31,7 +31,7 @@ public class ExceptionMiddleware
             var response = new ProblemDetails
             {
                 Status = 500,
-                Detail = _environment.IsDevelopment() ? e.StackTrace?.ToString() : null,
+                Detail = _environment.IsDevelopment() ? e.StackTrace : null,
                 Title = e.Message
             };
 
