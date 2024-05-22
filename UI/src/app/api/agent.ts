@@ -33,7 +33,8 @@ axios.interceptors.response.use(async response => {
       router.navigate('/not-found')
       break;
     case 500:
-      router.navigate('/server-error', { state: { error: data }})
+      toast.error("Something went wrong...")
+      // router.navigate('/server-error', { state: { error: data }})
       break;
     default: break;
   }
@@ -52,6 +53,12 @@ const Catalog = {
   details: (id: number) => requests.get(`products/${id}`)
 }
 
+const Basket = {
+  get: () => requests.get('basket'),
+  addItem: (productId: number, quantity = 1) => requests.post(`basket?productId=${productId}&quantity=${quantity}`, {}),
+  deleteItem: (productId: number, quantity: number) => requests.delete(`basket?productId=${productId}&quantity=${quantity}`),
+}
+
 const TestErrors = {
   get400: () => requests.get('bug/bad-request'),
   get401: () => requests.get('bug/unauthorised'),
@@ -62,7 +69,8 @@ const TestErrors = {
 
 const agent = {
   Catalog,
-  TestErrors
+  TestErrors,
+  Basket
 }
 
 export default agent;

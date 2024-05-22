@@ -9,12 +9,34 @@ import {
 } from "@mui/material";
 import {IProduct} from "../../app/interfaces/IProduct.tsx";
 import {Link} from "react-router-dom";
+import {useState} from "react";
+import agent from "../../app/api/agent.ts";
+import Loading from "../../app/layout/Loading.tsx";
 
 interface IProps {
   product: IProduct
 }
 
 export default function ProductCard({product} : IProps) {
+  const [loading, setLoading] = useState<boolean>(false);
+  
+  const handleAddItem = (productId: number) => {
+    setLoading(true);
+    agent.Basket.addItem(productId)
+      .then((res) => {
+        console.log(res.data)
+      })
+      .catch(e => {
+        console.error(e)
+      })
+      .finally(() => {
+        setLoading(false);
+      })
+  }
+
+  if (loading)
+    return <Loading message="Adding to basket" />
+  
   return (
     <Card>
       <CardHeader
@@ -36,7 +58,7 @@ export default function ProductCard({product} : IProps) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small">Add to cart</Button>
+        <Button size="small" onClick={() => handleAddItem(product.id)}>Add to cart</Button>
         <Button size="small" component={Link} to={`/catalog/${product.id}`}>View</Button>
       </CardActions>
     </Card>
