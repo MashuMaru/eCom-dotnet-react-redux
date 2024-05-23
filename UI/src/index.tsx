@@ -8,11 +8,14 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import {RouterProvider} from "react-router-dom";
 import {router} from "./app/router/Routes.tsx";
+import {Provider} from "./app/context/Context.tsx";
 
 
 ReactDOM.createRoot(document.getElementById('store-app')!).render(
   <React.StrictMode>
-    <ToastContainer position="top-right" hideProgressBar theme="colored" />
-    <RouterProvider router={router} />
+    <Provider>
+      <ToastContainer position="top-right" hideProgressBar theme="colored" />
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>,
 )
