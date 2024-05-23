@@ -7,6 +7,7 @@ import AboutPage from "../../features/about/AboutPage.tsx";
 import ContactPage from "../../features/contact/ContactPage.tsx";
 import ServerError from "../errors/ServerError.tsx";
 import NotFound from "../errors/NotFound.tsx";
+import BasketPage from "../../features/basket/BasketPage.tsx";
 
 export const router = createBrowserRouter([
   {
@@ -20,6 +21,7 @@ export const router = createBrowserRouter([
       { path: 'contact', element: <ContactPage /> },
       { path: 'server-error', element: <ServerError /> },
       { path: 'not-found', element: <NotFound /> },
+      { path: 'basket', element: <BasketPage /> },
       { path: '*', element: <Navigate replace to="/not-found" /> }
     ]
   }

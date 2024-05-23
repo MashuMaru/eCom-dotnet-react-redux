@@ -11,7 +11,7 @@ import {IProduct} from "../../app/interfaces/IProduct.tsx";
 import {Link} from "react-router-dom";
 import {useState} from "react";
 import agent from "../../app/api/agent.ts";
-import Loading from "../../app/layout/Loading.tsx";
+import {LoadingButton} from "@mui/lab";
 
 interface IProps {
   product: IProduct
@@ -24,7 +24,7 @@ export default function ProductCard({product} : IProps) {
     setLoading(true);
     agent.Basket.addItem(productId)
       .then((res) => {
-        console.log(res.data)
+        console.log(res)
       })
       .catch(e => {
         console.error(e)
@@ -33,9 +33,6 @@ export default function ProductCard({product} : IProps) {
         setLoading(false);
       })
   }
-
-  if (loading)
-    return <Loading message="Adding to basket" />
   
   return (
     <Card>
@@ -58,7 +55,12 @@ export default function ProductCard({product} : IProps) {
         </Typography>
       </CardContent>
       <CardActions>
-        <Button size="small" onClick={() => handleAddItem(product.id)}>Add to cart</Button>
+        <LoadingButton 
+          loading={loading} 
+          size="small" 
+          onClick={() => handleAddItem(product.id)}>
+          Add to cart
+        </LoadingButton>
         <Button size="small" component={Link} to={`/catalog/${product.id}`}>View</Button>
       </CardActions>
     </Card>
