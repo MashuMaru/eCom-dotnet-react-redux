@@ -1,9 +1,5 @@
-import {useEffect, useState} from "react";
-import {IBasket} from "../../app/interfaces/IBasket.tsx";
-import agent from "../../app/api/agent.ts";
-import Loading from "../../app/layout/Loading.tsx";
 import {
-  IconButton,
+  Box,
   Paper,
   Table,
   TableBody,
@@ -13,22 +9,33 @@ import {
   TableRow,
   Typography
 } from "@mui/material";
-import {Delete} from "@mui/icons-material";
+import {Add, Delete, Remove} from "@mui/icons-material";
+import {useStoreContext} from "../../app/context/Context.tsx";
+import {useState} from "react";
+import agent from "../../app/api/agent.ts";
+import {LoadingButton} from "@mui/lab";
 
 const BasketPage = () => {
-  const [loading, setLoading] = useState<boolean>(true);
-  const [basket, setBasket] = useState<IBasket | null>(null);
-
-  useEffect(() => {
-    agent.Basket.get()
-      .then(basket => setBasket(basket))
-      .catch(error => console.log(error))
-      .finally(() => setLoading(false))
-  }, []);
-  
-  if (loading) return <Loading message="Loading basket..." />
+  const { basket, setBasket, removeItem } = useStoreContext();
+  const [loading, setLoading] = useState<boolean>(false);
   
   if (!basket) return <Typography variant="h3">Your basket is empty</Typography>
+  
+  const handleAddItem = (productId: number) => {
+    setLoading(true)
+    agent.Basket.addItem(productId)
+      .then(res => setBasket(res))
+      .catch(error => console.log(error))
+      .finally(() => setLoading(false))
+  }
+
+  const handleRemoveItem = (productId: number, quantity = 1) => {
+    setLoading(true)
+    agent.Basket.deleteItem(productId, quantity)
+      .then(() => removeItem(productId, quantity))
+      .catch(error => console.log(error))
+      .finally(() => setLoading(false))
+  }
       
   return (
     <TableContainer component={Paper}>
@@ -37,7 +44,7 @@ const BasketPage = () => {
           <TableRow>
             <TableCell>Product</TableCell>
             <TableCell align="right">Price</TableCell>
-            <TableCell align="right">Quantity</TableCell>
+            <TableCell align="center">Quantity</TableCell>
             <TableCell align="right">Subtotal</TableCell>
             <TableCell align="right"></TableCell>
           </TableRow>
@@ -45,19 +52,32 @@ const BasketPage = () => {
         <TableBody>
           {basket.items.map((row) => (
             <TableRow
-              key={row.name}
+              key={row.productId}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {row.name}
+                <Box display="flex" alignItems="center">
+                  <img src={row.pictureUrl} alt={row.name} style={{ height: 50, marginRight: 20 }} />
+                  <span>{row.name}</span>
+                </Box>
               </TableCell>
               <TableCell align="right">£{(row.price / 100).toFixed(2)}</TableCell>
-              <TableCell align="right">{row.quantity}</TableCell>
+              
+              <TableCell align="center">
+                <LoadingButton loading={loading} color="error" onClick={() => handleRemoveItem(row.productId)}>
+                  <Remove />
+                </LoadingButton>
+                {row.quantity}
+                <LoadingButton loading={loading} color="secondary" onClick={() => handleAddItem(row.productId)}>
+                  <Add />
+                </LoadingButton>
+              </TableCell>
+              
               <TableCell align="right">£{((row.price / 100) * row.quantity).toFixed(2)}</TableCell>
               <TableCell align="right">
-                <IconButton color="error">
+                <LoadingButton color="error" loading={loading} onClick={() => handleRemoveItem(row.productId, row.quantity)}>
                   <Delete />
-                </IconButton>
+                </LoadingButton>
               </TableCell>
             </TableRow>
           ))}

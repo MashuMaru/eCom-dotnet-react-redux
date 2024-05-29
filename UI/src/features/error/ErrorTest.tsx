@@ -2,7 +2,7 @@ import agent from "../../app/api/agent";
 
 export default function ErrorTest () {
   
-  const handleCall = (errorCode: number) => {
+  const handleCall = (errorCode: number | null) => {
     switch (errorCode) {
       case 400:
         agent.TestErrors.get400()
@@ -20,6 +20,10 @@ export default function ErrorTest () {
         agent.TestErrors.get500()
           .catch(error => console.log('handled', error))
         break;
+      case null:
+        agent.TestErrors.getValidationE()
+          .catch(error => console.log('handled', error))
+        break;
     }
   }
   
@@ -30,7 +34,7 @@ export default function ErrorTest () {
       <button onClick={() => handleCall(401)}>401</button>
       <button onClick={() => handleCall(404)}>404</button>
       <button onClick={() => handleCall(500)}>500</button>
-      <button onClick={() => agent.TestErrors.getValidationE()}>Validation</button>
+      <button onClick={() => handleCall(null)}>Validation</button>
     </>
   )
 }

@@ -12,6 +12,8 @@ import {Link} from "react-router-dom";
 import {useState} from "react";
 import agent from "../../app/api/agent.ts";
 import {LoadingButton} from "@mui/lab";
+import {useStoreContext} from "../../app/context/Context.tsx";
+import {toast} from "react-toastify";
 
 interface IProps {
   product: IProduct
@@ -19,12 +21,16 @@ interface IProps {
 
 export default function ProductCard({product} : IProps) {
   const [loading, setLoading] = useState<boolean>(false);
-  
+  const { setBasket } = useStoreContext();
   const handleAddItem = (productId: number) => {
     setLoading(true);
     agent.Basket.addItem(productId)
       .then((res) => {
-        console.log(res)
+        setBasket(res)
+        toast.info("Product added to basket", {
+          position: "bottom-right",
+          autoClose: 2000
+        });
       })
       .catch(e => {
         console.error(e)
