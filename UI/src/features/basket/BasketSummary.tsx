@@ -14,7 +14,6 @@ export default function BasketSummary() {
   const subTotal = basket?.items
     .reduce((sum, item) => sum + (item.quantity * (item.price)), 0) ?? 0;
 
-  console.log(subTotal)
   const deliveryFee = (subTotal > 10000 || subTotal === 0) ? 0 : 500;
   
   return (
