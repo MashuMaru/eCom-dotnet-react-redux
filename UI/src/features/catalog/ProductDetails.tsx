@@ -1,10 +1,20 @@
-import {Divider, Grid, Table, TableBody, TableCell, TableContainer, TableRow, Typography} from "@mui/material";
+import {
+  Divider,
+  Grid,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow,
+  Typography
+} from "@mui/material";
 import {useParams} from "react-router-dom";
 import {useEffect, useState} from "react";
 import agent from "../../app/api/agent.ts";
 import {IProduct} from "../../app/interfaces/IProduct.tsx";
 import Loading from "../../app/layout/Loading.tsx";
 import NotFound from "../../app/errors/NotFound.tsx";
+import {currencyFormatter} from "../../app/util/util.ts";
 
 const ProductDetails = () => {
   const { id } = useParams<{ id: string }>();
@@ -29,7 +39,7 @@ const ProductDetails = () => {
       <Grid item xs={6}>
         <Typography variant='h3'>{product.name}</Typography>
         <Divider sx={{ mb: 2 }} />
-        <Typography variant='h4' color='secondary'>£{(product.price / 100).toFixed(2)}</Typography>
+        <Typography variant='h4' color='secondary'>{currencyFormatter(product.price)}</Typography>
         <TableContainer>
           <Table>
             <TableBody>

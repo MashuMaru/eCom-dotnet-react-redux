@@ -14,6 +14,7 @@ import agent from "../../app/api/agent.ts";
 import {LoadingButton} from "@mui/lab";
 import {useStoreContext} from "../../app/context/Context.tsx";
 import {toast} from "react-toastify";
+import {currencyFormatter} from "../../app/util/util.ts";
 
 interface IProps {
   product: IProduct
@@ -54,7 +55,7 @@ export default function ProductCard({product} : IProps) {
       />
       <CardContent>
         <Typography gutterBottom color="secondary" variant="h5">
-          £{(product.price / 100).toFixed(2)}
+          {currencyFormatter(product.price)}
         </Typography>
         <Typography variant="body2" color="text.secondary">
           {product.brand} / {product.type}

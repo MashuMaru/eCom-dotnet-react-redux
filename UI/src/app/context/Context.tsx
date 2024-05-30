@@ -1,5 +1,10 @@
 import {IBasket} from "../interfaces/IBasket.tsx";
-import {createContext, PropsWithChildren, useContext, useState} from "react";
+import {
+  createContext,
+  PropsWithChildren,
+  useContext,
+  useState
+} from "react";
 
 interface ContextValue {
   basket: IBasket | null

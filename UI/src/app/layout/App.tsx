@@ -4,9 +4,9 @@ import {Container, createTheme, CssBaseline, ThemeProvider} from "@mui/material"
 import {useEffect, useState} from "react";
 import {Outlet} from "react-router-dom";
 import {useStoreContext} from "../context/Context.tsx";
-import getCookie from "../util/util.ts";
 import agent from "../api/agent.ts";
 import Loading from "./Loading.tsx";
+import {getCookie} from "../util/util.ts";
 
 function App() {
   const { setBasket } = useStoreContext();

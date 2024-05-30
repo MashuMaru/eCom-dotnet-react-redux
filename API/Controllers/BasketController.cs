@@ -1,6 +1,5 @@
 using API.Data;
 using API.DTOs;
-using API.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Basket = API.Entities.Basket;
