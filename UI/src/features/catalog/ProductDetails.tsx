@@ -5,7 +5,9 @@ import {
   TableBody,
   TableCell,
   TableContainer,
-  TableRow, TextField,
+  TableRow, 
+  TextField, 
+  Tooltip,
   Typography
 } from "@mui/material";
 import {useParams} from "react-router-dom";
@@ -19,7 +21,7 @@ import {useStoreContext} from "../../app/context/Context.tsx";
 import {LoadingButton} from "@mui/lab";
 
 const ProductDetails = () => {
-  const { basket } = useStoreContext();
+  const { basket, setBasket, removeItem } = useStoreContext();
   
   const { id } = useParams<{ id: string }>();
   const [loading, setLoading] = useState<boolean>(true);
@@ -48,6 +50,24 @@ const ProductDetails = () => {
       return;
     
     setQuantity(parseInt(e.target.value))
+  }
+  
+  const handleUpdateCart = () => {
+    setSubmitting(true)
+    
+    if (!item || quantity > item.quantity) {
+      const updatedQuantity = item ? quantity - item.quantity : quantity;
+      agent.Basket.addItem(product.id!, updatedQuantity)
+        .then(basket => setBasket(basket))
+        .catch(error => console.log(error))
+        .finally(() => setSubmitting(false));
+    } else {
+      const updatedQuantity = item.quantity - quantity;
+      agent.Basket.deleteItem(product.id, updatedQuantity)
+        .then(() => removeItem(product.id, quantity))
+        .catch(error => console.log(error))
+        .finally(() => setSubmitting(false))
+    }
   }
 
   return (
@@ -96,14 +116,21 @@ const ProductDetails = () => {
               fullWidth />
           </Grid>
           <Grid item xs={6}>
-            <LoadingButton 
-              sx={{ height: '55px'}} 
-              color='primary' 
-              size='large' 
-              variant='contained' 
-              fullWidth>
-              {item ? 'Update quantity' : 'Add to Cart'}
-            </LoadingButton>
+            <Tooltip arrow title={quantity <= 0 && 'Provide a quantity to add to cart.'}>
+              <span>
+                <LoadingButton
+                  disabled={quantity <= 0}
+                  loading={submitting}
+                  sx={{ height: '55px'}}
+                  color='primary'
+                  size='large'
+                  variant='contained'
+                  onClick={handleUpdateCart}
+                  fullWidth>
+                {item ? 'Update quantity' : 'Add to Cart'}
+              </LoadingButton>
+              </span>
+            </Tooltip>
           </Grid>
         </Grid>
       </Grid>
