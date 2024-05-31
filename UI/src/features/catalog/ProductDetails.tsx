@@ -46,28 +46,34 @@ const ProductDetails = () => {
   const handleQuantityUpdate = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newQuantity = parseInt(e.target.value);
     
-    if (isNaN(newQuantity) || newQuantity < 1) 
-      return;
+    if (newQuantity < 0) return;
     
-    setQuantity(parseInt(e.target.value))
+    setQuantity(newQuantity)
   }
   
   const handleUpdateCart = () => {
+    if (!product) return;
+    
     setSubmitting(true)
     
     if (!item || quantity > item.quantity) {
       const updatedQuantity = item ? quantity - item.quantity : quantity;
-      agent.Basket.addItem(product.id!, updatedQuantity)
+      agent.Basket.addItem(product.id, updatedQuantity)
         .then(basket => setBasket(basket))
         .catch(error => console.log(error))
         .finally(() => setSubmitting(false));
     } else {
+      console.log(item.quantity, quantity)
       const updatedQuantity = item.quantity - quantity;
       agent.Basket.deleteItem(product.id, updatedQuantity)
-        .then(() => removeItem(product.id, quantity))
+        .then(() => removeItem(product.id, updatedQuantity))
         .catch(error => console.log(error))
         .finally(() => setSubmitting(false))
     }
+  }
+  
+  const canUpdateBasket = () => {
+    return item?.quantity === quantity || !item && quantity === 0;
   }
 
   return (
@@ -116,10 +122,10 @@ const ProductDetails = () => {
               fullWidth />
           </Grid>
           <Grid item xs={6}>
-            <Tooltip arrow title={quantity <= 0 && 'Provide a quantity to add to cart.'}>
+            <Tooltip arrow title={canUpdateBasket() && 'Provide a quantity to add to cart.'}>
               <span>
                 <LoadingButton
-                  disabled={quantity <= 0}
+                  disabled={canUpdateBasket()}
                   loading={submitting}
                   sx={{ height: '55px'}}
                   color='primary'

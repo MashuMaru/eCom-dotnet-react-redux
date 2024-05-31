@@ -35,7 +35,8 @@ export function Provider({children}: PropsWithChildren<unknown>) {
     if (itemIndex >= 0) {
       items[itemIndex].quantity -= quantity;
       
-      if (items[itemIndex].quantity === 0) items.splice(itemIndex, 1);
+      if (items[itemIndex].quantity === 0) 
+        items.splice(itemIndex, 1);
       
       setBasket(prevState => {
         return {...prevState!, items}

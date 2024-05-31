@@ -10,6 +10,17 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+var origins = "origins";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(
+        name: origins,
+        configurePolicy: policy =>
+        {
+            policy.WithOrigins("http://localhost:3000");
+        });
+});
+
 builder.Services.AddDbContext<StoreContext>(opt => 
 {
     opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection"));
