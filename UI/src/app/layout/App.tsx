@@ -41,7 +41,7 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Header handleDarkMode={(value: boolean) => setDarkMode(value)} />
-      <Container>
+      <Container sx={{ mb: 5 }}>
         <Outlet />
       </Container>
     </ThemeProvider>
