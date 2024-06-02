@@ -6,11 +6,11 @@ import {
   TableRow,
   TableCell
 } from "@mui/material";
-import {useStoreContext} from "../../app/context/Context.tsx";
 import {currencyFormatter} from "../../app/util/util.ts";
+import {useAppSelector} from "../../app/store/configureStore.ts";
 
 export default function BasketSummary() {
-  const { basket } = useStoreContext();
+  const { basket } = useAppSelector(state => state.basket)
   const subTotal = basket?.items
     .reduce((sum, item) => sum + (item.quantity * (item.price)), 0) ?? 0;
 
@@ -30,7 +30,9 @@ export default function BasketSummary() {
               <TableCell align="right">{currencyFormatter(deliveryFee)}</TableCell>
             </TableRow>
             <TableRow>
-              <TableCell colSpan={2}>Total</TableCell>
+              <TableCell colSpan={2}>Total
+                <span style={{fontStyle: 'italic'}}>*Orders over $100 qualify for free delivery</span>
+              </TableCell>
               <TableCell align="right">{currencyFormatter(subTotal + deliveryFee)}</TableCell>
             </TableRow>
             <TableRow>
