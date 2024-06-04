@@ -12,9 +12,10 @@ import {Link} from "react-router-dom";
 import {useState} from "react";
 import agent from "../../app/api/agent.ts";
 import {LoadingButton} from "@mui/lab";
-import {useStoreContext} from "../../app/context/Context.tsx";
 import {toast} from "react-toastify";
 import {currencyFormatter} from "../../app/util/util.ts";
+import {useAppDispatch} from "../../app/store/configureStore.ts";
+import {setBasket} from "../basket/basketSlice.ts";
 
 interface IProps {
   product: IProduct
@@ -22,12 +23,12 @@ interface IProps {
 
 export default function ProductCard({product} : IProps) {
   const [loading, setLoading] = useState<boolean>(false);
-  const { setBasket } = useStoreContext();
+  const dispatch = useAppDispatch();
   const handleAddItem = (productId: number) => {
     setLoading(true);
     agent.Basket.addItem(productId)
       .then((res) => {
-        setBasket(res)
+        dispatch(setBasket(res))
         toast.info("Product added to basket", {
           position: "bottom-right",
           autoClose: 2000

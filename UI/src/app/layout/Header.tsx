@@ -2,7 +2,7 @@ import {AppBar, Badge, Box, IconButton, List, ListItem, Switch, Toolbar, Typogra
 import {ChangeEvent} from "react";
 import {Link, NavLink} from "react-router-dom";
 import {ShoppingCart} from "@mui/icons-material";
-import {useStoreContext} from "../context/Context.tsx";
+import {useAppSelector} from "../store/configureStore.ts";
 
 interface IProps {
   handleDarkMode: (value: boolean) => void
@@ -36,7 +36,7 @@ const navStyles = {
 }
 
 const Header = ({handleDarkMode} : IProps) => {
-  const { basket } = useStoreContext();
+  const { basket } = useAppSelector(state => state.basket)
   const itemCount = basket?.items.reduce((sum, item) => sum + item.quantity, 0);
   
   return (

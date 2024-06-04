@@ -20,7 +20,6 @@ import {useAppDispatch, useAppSelector} from "../../app/store/configureStore.ts"
 import {removeItem, setBasket} from "./basketSlice.ts";
 
 const BasketPage = () => {
-  // const { basket, setBasket, removeItem } = useStoreContext();
   const { basket } = useAppSelector(state => state.basket)
   const dispatch = useAppDispatch();
   const [status, setStatus] = useState({

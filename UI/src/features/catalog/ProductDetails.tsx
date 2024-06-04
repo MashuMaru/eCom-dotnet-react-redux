@@ -17,11 +17,13 @@ import {IProduct} from "../../app/interfaces/IProduct.tsx";
 import Loading from "../../app/layout/Loading.tsx";
 import NotFound from "../../app/errors/NotFound.tsx";
 import {currencyFormatter} from "../../app/util/util.ts";
-import {useStoreContext} from "../../app/context/Context.tsx";
 import {LoadingButton} from "@mui/lab";
+import {useAppDispatch, useAppSelector} from "../../app/store/configureStore.ts";
+import {removeItem, setBasket} from "../basket/basketSlice.ts";
 
 const ProductDetails = () => {
-  const { basket, setBasket, removeItem } = useStoreContext();
+  const { basket } = useAppSelector(state => state.basket)
+  const dispatch = useAppDispatch();
   
   const { id } = useParams<{ id: string }>();
   const [loading, setLoading] = useState<boolean>(true);
@@ -59,14 +61,14 @@ const ProductDetails = () => {
     if (!item || quantity > item.quantity) {
       const updatedQuantity = item ? quantity - item.quantity : quantity;
       agent.Basket.addItem(product.id, updatedQuantity)
-        .then(basket => setBasket(basket))
+        .then(basket => dispatch(setBasket(basket)))
         .catch(error => console.log(error))
         .finally(() => setSubmitting(false));
     } else {
       console.log(item.quantity, quantity)
       const updatedQuantity = item.quantity - quantity;
       agent.Basket.deleteItem(product.id, updatedQuantity)
-        .then(() => removeItem(product.id, updatedQuantity))
+        .then(() => dispatch(removeItem({ productId: product.id, quantity: updatedQuantity})))
         .catch(error => console.log(error))
         .finally(() => setSubmitting(false))
     }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers;
 
-[ServiceFilter(typeof(ApiKeyAuthFilter))]
+// [ServiceFilter(typeof(ApiKeyAuthFilter))]
 public class ProductsController : BaseApiController
 {
     private readonly StoreContext _context;
