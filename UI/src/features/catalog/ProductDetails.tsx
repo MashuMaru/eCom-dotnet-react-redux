@@ -65,7 +65,6 @@ const ProductDetails = () => {
         .catch(error => console.log(error))
         .finally(() => setSubmitting(false));
     } else {
-      console.log(item.quantity, quantity)
       const updatedQuantity = item.quantity - quantity;
       agent.Basket.deleteItem(product.id, updatedQuantity)
         .then(() => dispatch(removeItem({ productId: product.id, quantity: updatedQuantity})))
