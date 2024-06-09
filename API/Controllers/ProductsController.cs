@@ -1,6 +1,7 @@
 using API.Authentication;
 using API.Data;
 using API.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -17,6 +18,7 @@ public class ProductsController : BaseApiController
     }
 
     [HttpGet]
+    [Authorize]
     public async Task<ActionResult<List<Product>>> GetProducts()
     {
         var products = await _context.Products.ToListAsync();
